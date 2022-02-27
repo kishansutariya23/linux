@@ -62,7 +62,7 @@ NOTE:- The term "FOLDER" or "DIRECTORY" are same.
 
 > cd ..                  => move back to previous directory   
 > cd 'directory_name'    => move inside 'directory_name' from current directory
-> cd /test    => Change directory to /test directory
+> cd /test               => Change directory to /test directory
 ```
 below are the example for directory traverse perform in git bash of windows10.
 
@@ -228,20 +228,23 @@ while pressing below key make sure you are out of edit mode.
 ## hardlink
 
 ## softlink/shorcut
-1. file shortcut
->     cd
->     ln -s demo/file1.txt shortcutfile1.txt
->     ll
->     cat >> shortcutfile1.txt
->     ll -i demo/
->     cat shortcutfile1.txt
 
-2. folder shortcut
->     cd
->     ln -s demo shdemo
->     ll -i
->     cd shdemo/
->     ll -i
+(i). file shortcut
+
+    > cd
+    > ln -s demo/file1.txt shortcutfile1.txt
+    > ll
+    > cat >> shortcutfile1.txt
+    > ll -i demo/
+    > cat shortcutfile1.txt
+
+(ii). folder shortcut
+
+    > cd
+    > ln -s demo shdemo
+    > ll -i
+    > cd shdemo/
+    > ll -i
 
 =================================================================================================================================================
 # (5) absolute path and relative path
@@ -252,9 +255,9 @@ when we give entire file path for specifying file or folder we use absolute path
 
 it can be used in copy,paste, and other command of terminal .
 
-        > cd
-        > cd /home/user/demo/
-        > /usr/bin/cd /home/user/demo/
+    > cd
+    > cd /home/user/demo/
+    > /usr/bin/cd /home/user/demo/
 
 (ii) relative path
 
@@ -269,7 +272,7 @@ it is used when we want to enter to next folder from current folder
     > which ls
     > echo $PATH
 
-# (5) IO REDIRECTORS
+# (6) IO REDIRECTORS
 1. STDIN    < << <<< 
 2. stdout   > >>
 3. STDERR   2> 2>> 2>&
@@ -291,49 +294,49 @@ it is used when we want to enter to next folder from current folder
  
 (ii) STDOUT
 
-     > cat > file1
-     > cat >> file2
-     > ll > file1
-     > sudo /bin/ls -l >/dev/tty4
-     > tty
-     > cat
-     > cat>file1
-     > cat file1
-     > cat file1>file2
-     > cat file2
-     > cat file1>/dev/null
+    > cat > file1
+    > cat >> file2
+    > ll > file1
+    > sudo /bin/ls -l >/dev/tty4
+    > tty
+    > cat
+    > cat>file1
+    > cat file1
+    > cat file1>file2
+    > cat file2
+    > cat file1>/dev/null
 
 (iii) STDERR
  
-    find / -name passwd
-    find / -name passwd 2> permission_denied
-    ls
-    cat permission_denied
-    cat > file1 2> errout
-    caat > file1 2> errout
-    cat errout
-    cat > file1 2>> errout
-    ccat > file1 2>> errout
-    catt > file1 2>> errout
-    cat > file1 2>> errout
-    catt > file1 2>> errout
-    cat file1
-    cat errout
-    catt > file1 2>&
-    catt > file1 2>&1
-    cat file1
-    cat > file1 2>&1
-    cat file1
-    ccat > file1 2>&1
-    cat file1
-    ccat >> file1 2>&1
-    cat >> file1 2>&1
-    cat file1
-    cat >> file1 2>/dev/null
-    ccat >> file1 2>/dev/null
-    cat file1
- 
-# (6) | ; tee commands
+    > find / -name passwd
+    > find / -name passwd 2> permission_denied
+    > ls
+    > cat permission_denied
+    > cat > file1 2> errout
+    > caat > file1 2> errout
+    > cat errout
+    > cat > file1 2>> errout
+    > ccat > file1 2>> errout
+    > catt > file1 2>> errout
+    > cat > file1 2>> errout
+    > catt > file1 2>> errout
+    > cat file1
+    > cat errout
+    > catt > file1 2>&
+    > catt > file1 2>&1
+    > cat file1
+    > cat > file1 2>&1
+    > cat file1
+    > ccat > file1 2>&1
+    > cat file1
+    > ccat >> file1 2>&1
+    > cat >> file1 2>&1
+    > cat file1
+    > cat >> file1 2>/dev/null
+    > ccat >> file1 2>/dev/null
+    > cat file1
+  
+# (7) | ; tee commands
 
     > cat color |sort
     > cat color |sort|uniq
@@ -347,7 +350,7 @@ it is used when we want to enter to next folder from current folder
     > ls -lRt|tee file123
 
 
-# (7) GREP
+# (8) GREP
     > grep root /etc/passwd
     > grep root /etc/group
     > grep ^root /etc/passwd
@@ -364,7 +367,7 @@ it is used when we want to enter to next folder from current folder
     > grep -i red color1
     > grep -i ^red color1
 
-# (8) cut & paste
+# (9) cut & paste
     > cat /etc/passwd
     > cut -d ":" -f1 /etc/passwd
     > cut -d ":" -f2 /etc/passwd
@@ -392,7 +395,7 @@ it is used when we want to enter to next folder from current folder
     > cat newpasswd1
     > cut -d "+" -f1 newpasswd1
 
-# (9) head tail more less
+# (10) head tail more less
 
     > head /etc/passwd
     > tail /etc/passwd
@@ -407,12 +410,12 @@ tail will give last 10 lines of a file
     /Word     --> type "n" top to bottom movement
                        "N" left to right movement
 
-# (10) sed
+# (11) sed
 
  iam working on this command
 ======================================
 
-# (11) USER MANAGEMENT
+# (12) USER MANAGEMENT
 (i) User creation
 
      > sudo adduser nikki
@@ -423,32 +426,32 @@ for verify wether user is created or not  go with below commands
 
 password setting
 
->     sudo passwd nikki
->    
+    > sudo passwd nikki
+   
 
 
 (i) user creation
 
-      > sudo adduser nuser1
-      > tail -1 /etc/passwd
-      > grep nuser1 /etc/passwd
-      > tail -1 /etc/group
-      > sudo tail -1 /etc/shadow
-      > sudo passwd nuser1
-      > sudo adduser -s /bin/csh nuser2
-      > sudo tail -1 /etc/passwd
-      > sudo mkdir /home1
-      > ls -ld /home1 /home
-      > sudo adduser -u 2001 -g wheel -d /home1/nuser3 -m -c "developer" -s /bin/csh nuser3
-      > tail -1 /etc/passwd
-      > sudo passwd nuser3
-      > su - nuser3
- -----------------------------------------------
-      > sudo mkdir /basehome
-      > sudo useradd -d /basehome/nuser5 -m nuser5
-      > grep nuser5 /etc/passwd
-      > sudo passwd nuser5
-      > su - nuser5
+    > sudo adduser nuser1
+    > tail -1 /etc/passwd
+    > grep nuser1 /etc/passwd
+    > tail -1 /etc/group
+    > sudo tail -1 /etc/shadow
+    > sudo passwd nuser1
+    > sudo adduser -s /bin/csh nuser2
+    > sudo tail -1 /etc/passwd
+    > sudo mkdir /home1
+    > ls -ld /home1 /home
+    > sudo adduser -u 2001 -g wheel -d /home1/nuser3 -m -c"developer" -s /bin/csh nuser3
+    > tail -1 /etc/passwd
+    > sudo passwd nuser3
+    > su - nuser3
+ ----------------------------------------------
+    > sudo mkdir /basehome
+    > sudo useradd -d /basehome/nuser5 -m nuser5
+    > grep nuser5 /etc/passwd
+    > sudo passwd nuser5
+    > su - nuser5
 ================================================
 
 sed - sequence editor
@@ -558,16 +561,16 @@ supernetting - add subnets to make a bigger group
 
 ### netwroking commands
 
-     > ip a
-     > ip addr
-     > ifconfig 
-     > ifcongig -a
-     > ifconfig enp0s3
-     > ifconfig lo    (loopback)
-     > ifconfig enp0s8
-     > ifconfig lo|grep inet|grep -v inet6
-     > ifconfig enp0s3|grep inet|grep -v inet6|awk '{print $2}'
-     > ifconfig enp0s8|grep inet|grep -v inet6|awk '{print $2}'
+    > ip a
+    > ip addr
+    > ifconfig 
+    > ifcongig -a
+    > ifconfig enp0s3
+    > ifconfig lo    (loopback)
+    > ifconfig enp0s8
+    > ifconfig lo|grep inet|grep -v inet6
+    > ifconfig enp0s3|grep inet|grep -v inet6|awk '{print $2}'
+    > ifconfig enp0s8|grep inet|grep -v inet6|awk '{print $2}'
 
  mac address enp0s8
 
