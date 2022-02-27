@@ -1,32 +1,44 @@
 # Linux Basic Command
     NOTE :- 
     (1) IAM TRYING TO MAKE THIS NOTES EASIER TO READ      
-    (2) I HAVE JUST GIVEN MOST BASIC AND USED COMMANDS AND THERE OUTPUT IS NOT THERE IN THIS FILE/PAGE BUT HOPE YOU WILL LEARN BY YOUR OWN BY USING THESE COMMANDS.
-#### open terminal and start your journey in learning the basic of linux i.e., Basic Commands
-####   my name is kishan kumar so, user name for my system is kishan
+    (2) I HAVE JUST GIVEN MOST BASIC AND USED COMMANDS AND
+     THERE OUTPUT IS NOT THERE IN THIS FILE/PAGE BUT HOPE YOU WILL LEARN BY YOUR OWN BY USING THESE COMMANDS.
+    (3) > (greater than symboll) indicates that this is a new command in the terminal.
+
+open terminal and start your journey in learning the basic of linux i.e., Basic Commands. 
+My name is kishan kumar so, user name for my system is kishan
+
 -----------------------------------------------------------
 
 ##      # ---> it indicates a root user
-#### ex:- root@KISHAN-WINDOWS-M:/home/kishan#
+
+ex:- root@KISHAN-WINDOWS-M:/home/kishan#
 
 
 ##      $ ---> it indicates a local user
-#### ex:- kishan@KISHAN-WINDOWS-M:~$
-------------------------------------------------------
-## Then how to switch from local user to root user
-by default when we open the terminal we will be local user. 
 
-so below is the command to switch to root user from local user
->sudo bash
+ex:- kishan@KISHAN-WINDOWS-M:~$
+
+------------------------------------------------------
+
+## Then how to switch from local user to root user
+
+-> by default when we open the terminal we will be local user.
+
+-> so below is the command to switch to root user from local user
+
+    > sudo bash
 
 now, below is the command to exit from from the root user, 
->exit
+
+    > exit
 
 ---------------------------------------------------------------
+
 # (1) FILE COMMANDS
+
 NOTE:- The term "FOLDER" or "DIRECTORY" are same.
 
-lets start 
 ```bash
 > ls -al or ll           => Lists files - both regular & hidden files and   their permissions as well.
 > ls                     => only files
@@ -44,7 +56,7 @@ lets start
 > cat > file_name        => Places standard input into a file
  
 ```
-
+========================================================================================================================
 # (2) Directory traverse
 ```bash
 
@@ -53,6 +65,9 @@ lets start
 > cd /test    => Change directory to /test directory
 ```
 below are the example for directory traverse perform in git bash of windows10.
+
+[SOME OF THE BASIC COMMANDS OF LINUX CAN BE USED IN GIT ALSO ]
+
 ``` bash
 
 >> using "ls" command we checked the folders,files present in linux directory(folder) and we found 2 folders.
@@ -91,18 +106,22 @@ restart network
 > sudo systemctl restart NetworkManager
 ```
 
-#
-<!-- 21-2-22 -->
-# vim 
-#
-> vi file1.txt
+========================================================================================================================
+# (3) vim/vi editor command 
 
-## enter into edit mode
+to open vi editor we should give below command with file name, in our case the filename is file1,txt.  
+
+    > vi file1.txt
+
+to enter into edit mode below are the keys to be pressed on the keyboard.
 
 > ===> i,I,a,A,o,O,r,R
 
-## exit from edit mode
+to exit from edit mode we press Esc key.
 > esc
+
+## NOTATION:-
+## (i)  edit mode keys
 
 >     i - insert from the current location
 >     I - insert from beginning
@@ -114,8 +133,10 @@ restart network
 >     R - replace continous still esc
 
 ------------------
+## (ii) save the file 
+while exit we press below any 1 keys.
 
-## exit mode
+while pressing below key make sure you are out of edit mode.
 
 >     :w - save
 >     :q - quit
@@ -125,29 +146,73 @@ restart network
 >     :wq! - save & quit by force
 >     :q! - quit by force
 -------------------
-## copy paste
 
->     6yw - p 
->     9yy - p
-------------------
-## cut paste
----------
->     7dw - p
->     5dd - p
------------
-## cursor movement
----------------
+## (iii) CUT COPY & PASTE
+make sure you type below word outside the edit mode i.e., press "Esc" key then follow below operation
+
+### (i) copy & paste
+
+>     > yw
+>     > p
+>     > yy
+>     > p
+
+"yw" indicate copy the word it will start where the cursor is located in the vi editor.
+
+"yy" indicate copy the entire line
+
+"p" is for pasting the word or line which is copied, make sure your cursor is in right position where you wanted to paste.
+
+We can also use number to copy the word and number of lines.
+if your cursor is in middle of word then from that character it will copy based on number you given.  
+
+>     > 6yw 
+>     > p
+>     > 9yy 
+>     > p
+
+### (ii) cut & paste
+
+while pressing below key make sure you are out of edit mode.
+
+    
+>     > dw
+>     > p
+>     > dd
+>     > p
+
+"dw" indicate cut the word it will start where the cursor 
+is located in the vi editor.
+
+"dd" indicate cut the entire line
+
+"p" is for pasting the word or line which is cutted, make 
+sure your cursor is in right position where you wanted to 
+paste.
+
+We can also use number to cut the word and number of lines.
+if your cursor is in middle of word then from that 
+character it will cut based on number you given.  
+
+>     > 7dw 
+>     > p
+>     > 5dd 
+>     > p
+-----
+## (iv) CURSOR MOVEMENT.
+ while pressing below key make sure you are out of edit mode.
+
 >     h - left movement 
 >     l - right movement
 >     j - down
 >     k - up
->     ----------
+> ------------------------------------
 >     x - del key
 >     X - Backspace key
 
-
-## set
-
+----
+## (v) set
+while pressing below key make sure you are out of edit mode.
 >      :set nu
 >      :set showmode
 >      ===========================
@@ -158,7 +223,7 @@ restart network
   
  
 ==================================================================================================================================
-# inode number
+# (4) inode number
 
 ## hardlink
 
@@ -179,96 +244,96 @@ restart network
 >     ll -i
 
 =================================================================================================================================================
-# absolute path and relative path
+# (5) absolute path and relative path
 
-1. absolute path eg.
->     cd
->     cd /home/user/demo/
->     /usr/bin/cd /home/user/demo/
+(i) absolute path
 
-2. relative path
->     cd
->     cd demo/
-3. extra commands
->     which cd
->     which ls
->     echo $PATH
+when we give entire file path for specifying file or folder we use absolute path.
 
-# IO REDIRECTORS
+it can be used in copy,paste, and other command of terminal .
+
+        > cd
+        > cd /home/user/demo/
+        > /usr/bin/cd /home/user/demo/
+
+(ii) relative path
+
+it is used when we want to enter to next folder from current folder
+
+    > cd
+    > cd demo/
+
+(iii) extra commands
+
+    > which cd
+    > which ls
+    > echo $PATH
+
+# (5) IO REDIRECTORS
 1. STDIN    < << <<< 
 2. stdout   > >>
 3. STDERR   2> 2>> 2>&
 
-----
-1. stdin
->      --------
->      cat < file1
->      -----------
->      cat > file2 << eol
->      hi 
->      i am 
->      typing
->      eol
->      ----------------
->      cat <<< hello
->      echo hello
->      ---------------
-2
->     cat > file1
->     cat >> file2
->     ll > file1
->     sudo /bin/ls -l >/dev/tty4
->     tty
->     cat
->     cat>file1
->     cat file1
->     cat file1>file2
->     cat file2
->     cat file1>/dev/null
-3
-<!-- 
-find / -name passwd
-  334  find / -name passwd 2> permission_denied
-  335  ls
-  336  cat permission_denied
-  337  cat > file1 2> errout
-  338  caat > file1 2> errout
-  339  cat errout
-  340  cat > file1 2>> errout
-  341  ccat > file1 2>> errout
-  342  catt > file1 2>> errout
-  343  cat > file1 2>> errout
-  344  catt > file1 2>> errout
-  345  cat file1
-  346  cat errout
-  347  catt > file1 2>&
-  348  catt > file1 2>&1
-  349  cat file1
-  350  cat > file1 2>&1
-  351  cat file1
-  352  ccat > file1 2>&1
-  353  cat file1
-  354  ccat >> file1 2>&1
-  355  cat >> file1 2>&1
-  356  cat file1
-  357  cat >> file1 2>/dev/null
-  358  ccat >> file1 2>/dev/null
-  359  cat file1
- -->
->     find / -name passwd
->     find / -name passwd 2> permission_denied
->     cat permission_denied
->     cat > file1 2> errout
->     caat > file1 2> errout
->     cat errout
->     catt > file1 2>&1
->     cat file1
->     ccat >> file1 2>&1
->     ccat >> file1 2>/dev/null
->     cat file1
+(i) STDIN
 
+    > cat < file1
+    
 
-# | ; tee commands
+    > cat > file2 << eol
+    > hi 
+    > i am 
+    > typing
+    > eol
+    
+
+    > cat <<< hello
+    > echo hello
+ 
+(ii) STDOUT
+
+     > cat > file1
+     > cat >> file2
+     > ll > file1
+     > sudo /bin/ls -l >/dev/tty4
+     > tty
+     > cat
+     > cat>file1
+     > cat file1
+     > cat file1>file2
+     > cat file2
+     > cat file1>/dev/null
+
+(iii) STDERR
+ 
+    find / -name passwd
+    find / -name passwd 2> permission_denied
+    ls
+    cat permission_denied
+    cat > file1 2> errout
+    caat > file1 2> errout
+    cat errout
+    cat > file1 2>> errout
+    ccat > file1 2>> errout
+    catt > file1 2>> errout
+    cat > file1 2>> errout
+    catt > file1 2>> errout
+    cat file1
+    cat errout
+    catt > file1 2>&
+    catt > file1 2>&1
+    cat file1
+    cat > file1 2>&1
+    cat file1
+    ccat > file1 2>&1
+    cat file1
+    ccat >> file1 2>&1
+    cat >> file1 2>&1
+    cat file1
+    cat >> file1 2>/dev/null
+    ccat >> file1 2>/dev/null
+    cat file1
+ 
+# (6) | ; tee commands
 
     > cat color |sort
     > cat color |sort|uniq
@@ -282,9 +347,7 @@ find / -name passwd
     > ls -lRt|tee file123
 
 
-#
-# GREP
-<!-- AFTERNOON -->
+# (7) GREP
     > grep root /etc/passwd
     > grep root /etc/group
     > grep ^root /etc/passwd
@@ -301,7 +364,7 @@ find / -name passwd
     > grep -i red color1
     > grep -i ^red color1
 
-# cut & paste
+# (8) cut & paste
     > cat /etc/passwd
     > cut -d ":" -f1 /etc/passwd
     > cut -d ":" -f2 /etc/passwd
@@ -329,55 +392,63 @@ find / -name passwd
     > cat newpasswd1
     > cut -d "+" -f1 newpasswd1
 
-# head tail more less
+# (9) head tail more less
 
->     head /etc/passwd
->     tail /etc/passwd
->     more /etc/passwd
->     less /etc/passwd
+    > head /etc/passwd
+    > tail /etc/passwd
+    > more /etc/passwd
+    > less /etc/passwd
+
+head will give first 10 lines of a file
+tail will give last 10 lines of a file
+
     q to quit
     : number  --> go to that line
     /Word     --> type "n" top to bottom movement
                        "N" left to right movement
 
-# sed
+# (10) sed
 
-;
-# USER MANAGEMENT
-1) User creation
->     sudo adduser nikki
+ iam working on this command
+======================================
+
+# (11) USER MANAGEMENT
+(i) User creation
+
+     > sudo adduser nikki
 for verify wether user is created or not  go with below commands
->     tail -1 /etc/passwd
->     grep nikki /etc/passwd
+
+    > tail -1 /etc/passwd
+    > grep nikki /etc/passwd
+
 password setting
+
 >     sudo passwd nikki
 >    
 
-2) Customize user creatin
 
-1. user creation
->     > sudo adduser nuser1
->     > tail -1 /etc/passwd
->     > grep nuser1 /etc/passwd
->     > tail -1 /etc/group
->     > sudo tail -1 /etc/shadow
->     > sudo passwd nuser1
+(i) user creation
 
->     > sudo adduser -s /bin/csh nuser2
->     > sudo tail -1 /etc/passwd
->     > sudo mkdir /home1
->     > ls -ld /home1 /home
-
->     > sudo adduser -u 2001 -g wheel -d /home1/nuser3 -m -c "developer" -s /bin/csh nuser3
->     > tail -1 /etc/passwd
->     > sudo passwd nuser3
->     > su - nuser3
-------------------------------------------------
->     > sudo mkdir /basehome
->     > sudo useradd -d /basehome/nuser5 -m nuser5
->     > grep nuser5 /etc/passwd
->     > sudo passwd nuser5
->     > su - nuser5
+      > sudo adduser nuser1
+      > tail -1 /etc/passwd
+      > grep nuser1 /etc/passwd
+      > tail -1 /etc/group
+      > sudo tail -1 /etc/shadow
+      > sudo passwd nuser1
+      > sudo adduser -s /bin/csh nuser2
+      > sudo tail -1 /etc/passwd
+      > sudo mkdir /home1
+      > ls -ld /home1 /home
+      > sudo adduser -u 2001 -g wheel -d /home1/nuser3 -m -c "developer" -s /bin/csh nuser3
+      > tail -1 /etc/passwd
+      > sudo passwd nuser3
+      > su - nuser3
+ -----------------------------------------------
+      > sudo mkdir /basehome
+      > sudo useradd -d /basehome/nuser5 -m nuser5
+      > grep nuser5 /etc/passwd
+      > sudo passwd nuser5
+      > su - nuser5
 ================================================
 
 sed - sequence editor
@@ -393,49 +464,51 @@ sed - sequence editor
     > sed 's/unix/Linux/2' myunix
     > sed 's/unix/Linux/g' myunix
 
-2. usermod
->     > grep nuser5 /etc/passwd
->     > sudo usermod -s /bin/csh nuser5
->     > grep nuser5 /etc/passwd
->     > sudo usermod -u 4004 nuser5
->     > grep nuser5 /etc/passwd
->     > sudo usermod -L  nuser5
->     > sudo grep nuser /etc/shadow
->     > sudo usermod -U  nuser5
->     > sudo grep nuser /etc/shadow
+(ii) usermod
 
-3.userdel
->     > ls -l /home
->     > ls -l /home1
->     > ls -l /basehome/
->     > sudo userdel nuser5
->     > grep nuser5 /etc/passwd
->     > grep nuser5 /etc/group
->     > sudo grep nuser5 /etc/shadow
->     > ls -l /basehome/
->     > sudo userdel -r nuser4
->     > grep nuser4 /etc/passwd
->     > grep nuser4 /etc/group
->     > sudo grep nuser4 /etc/shadow
->     > ls -l /home1
->     > sudo userdel -r nuser3
->     > sudo userdel -r nuser2
->     > sudo userdel -r nuser1
->     > sudo userdel -r nuser
->     > ls -l /home
+    > grep nuser5 /etc/passwd
+    > sudo usermod -s /bin/csh nuser5
+    > grep nuser5 /etc/passwd
+    > sudo usermod -u 4004 nuser5
+    > grep nuser5 /etc/passwd
+    > sudo usermod -L  nuser5
+    > sudo grep nuser /etc/shadow
+    > sudo usermod -U  nuser5
+    > sudo grep nuser /etc/shadow
 
-4)groupadmin
->     > groupadd gp1
->     > groupadd -g 4001 gp2
->     > groupmod -g 4002 gp1
->     > groupmod -n newgp1 gp1
->     > groupdel gp1
->     > groupdel gp2
+(iii) userdel
+
+    > ls -l /home
+    > ls -l /home1
+    > ls -l /basehome/
+    > sudo userdel nuser5
+    > grep nuser5 /etc/passwd
+    > grep nuser5 /etc/group
+    > sudo grep nuser5 /etc/shadow
+    > ls -l /basehome/
+    > sudo userdel -r nuser4
+    > grep nuser4 /etc/passwd
+    > grep nuser4 /etc/group
+    > sudo grep nuser4 /etc/shadow
+    > ls -l /home1
+    > sudo userdel -r nuser3
+    > sudo userdel -r nuser2
+    > sudo userdel -r nuser1
+    > sudo userdel -r nuser
+    > ls -l /home
+(iv groupadmin
+
+    > groupadd gp1
+    > groupadd -g 4001 gp2
+    > groupmod -g 4002 gp1
+    > groupmod -n newgp1 gp1
+    > groupdel gp1
+    > groupdel gp2
 
 
-==================================
+=======================================================================================
+
 # Introduction to networking
-==========================
 
 OSI Layers
 7 layermodel
@@ -484,6 +557,7 @@ subnetting - deviding the existing subnet into smaller groups
 supernetting - add subnets to make a bigger group
 
 ### netwroking commands
+
      > ip a
      > ip addr
      > ifconfig 
@@ -495,40 +569,42 @@ supernetting - add subnets to make a bigger group
      > ifconfig enp0s3|grep inet|grep -v inet6|awk '{print $2}'
      > ifconfig enp0s8|grep inet|grep -v inet6|awk '{print $2}'
 
-mac address enp0s8
->    > ifconfig enp0s8|grep ether|awk '{print$2}'
+ mac address enp0s8
+
+-   > ifconfig enp0s8|grep ether|awk '{print$2}'
 
 host name
->       > hostname
->       > hostnamectl
+
+    > hostname
+    > hostnamectl
 to change hostname
->       > sudo hostnamectl set-hostname centos1.example.com
+    > sudo hostnamectl set-hostname centos1.example.com
 
 
 type bash so the update take place immidiate
->     > bash
->     > hostname
->     > hostnamectl
+    > bash
+    > hostname
+    > hostnamectl
 
 
 #local dns
 
-     > hostname -i
-     > vi /etc/hosts
-     > bash
-     > sudo vi /etc/hosts
-           add in last line
-           G
-           o
-           192.168.225.3   centos1.example.com     centos1
-           :wq
+    > hostname -i
+    > vi /etc/hosts
+    > bash
+    > sudo vi /etc/hosts
+>           add in last line
+>           G
+>           o
+>           192.168.225.3   centos1.example.com     centos1
+           
 
->
+
 
     > cat /etc/hosts
         192.168.225.3   centos1.example.com     centos1
 
->
+..
 
     > ping centos1
     > ping centos1.example.com
