@@ -1,3 +1,3 @@
 
-- NOTES TO PREPARE FOR SOME MENTION LANGUAGE (IN MY GITHUB INTO PAGE)
-- 
+- Notes to learn basic of technical languages
+- RoadMap to learn languages
