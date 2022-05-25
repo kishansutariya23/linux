@@ -204,6 +204,13 @@ make new branch and do edit in both new as well as master so git gets confused :
 git log --graph --oneline --all --decorate  # for flow chart of branch
 ------------------------------------------------------------
 ---------------------------
+stashing is used when we want to change to other branch without making commit
+
+so we have 4 things
+1 make stash
+2 list stash 
+3 get stash (coming back to commit area)
+4 delete stash (remove stash by using drop or clear)
 
 ======================================================================================================================
 UPLOAD
