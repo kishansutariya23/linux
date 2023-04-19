@@ -1,0 +1,96 @@
+docker --version
+docker pull ubuntu
+docker images   # to see the images pulled from hub
+docker run -it -d ubuntu  -->["-it" terminal interactive & "-d" run as deman or run container in background]
+you will get Long ID
+docker ps # to check list of container running with id
+docker stop ID
+docker run -t -d ubuntu
+docker ps -a #stop and running all it will show
+
+==------------------=======================
+working started :)
+
+docker exec -it ****id**** bash    ### id can be found from ps command
+  # run as root bash means in putty only you can run the docker-ubuntu
+
+NOTE:- Its a light weight type as it dont have all library 
+  it come with default library which are more necessary 
+ex:- sudo is not there in ubuntu ;)
+
+
+exit or ctrl+d ### to come out of container and come back to putty
+docker stop ***id*** # to stop the particulaar docker
+      and that docker is removed from container
+docker ps #to check its running#verify
+docker kill **id** # if docker is not responding and doing mischeff things
+docker ps -a  # you will find a stop things 
+docker rm **id** # to remove the doker container from system
+12min
+docker rmi ***id*** # for removing the image which we pull 
+docker images # to verify
+
+############# now the docker machine on our laptop has NO Container and its new#####################
+@@create docker hub 
+
+> docker rm -f ID  #IF CONTAINER IS RUNNING 
+
+####save the files in container
+docker commit <container-ID> <NAME-OF-IMAGE-COMIT>
+>> made changes in the env(ubuntu,projects...) then
+>> EXIT FROM ENV 
+> docker ps  # take(cpy) the ID
+> docker commit ID image-name    ---> so new image is created @ place bokka
+> docker run -it -d image-name   # all changes are will be there
+# above can be helpful only at 1 time @@cloudera(on linux they installed apach, hadoop ecosystem)
+## and share it :)`
+
+TASK:- download ubuntu then install apache server on it and make commit @$hurry you have ubuntuOS with apache on it.
+>>shortcut
+> docker rm -f $(docker ps -a -q)  #remove all containers in single GO
+>>>>check how we use $in HC_NODE project for $(pwd)
+> docker ps #no container is running
+AFTR TASK 
+> docker commit ID kishansutariya23/new-image-name
+>> stop all container
+>docker run -it -p 82:80 kishansutariya23/new-image-name  #check wether apach is running or not
+> docker exec -it ID bash  # id from running container
+#localhost:82
+
+
+##PUSHING TO DOCKERHUB
+> docker login
+username:
+pasword:
+###giving name will be good idea instead of id
+> docker push kishansutariya23/new-image-name
+
+
+#######Dockerfile
+as we dont need to install software by going inside the OS we can do that by using Dockerfile
+# so there is no need of enter install exit commit 
+steps for Dockerfile
+    FROM
+    ADD
+    RUN
+    CMD 
+    ENTRYPOINT
+    ENV
+
+ex:-
+FROM ubuntu
+RUN apt-get update
+RUN apt-get-y install apache2
+ADD . /var/user/Desktop
+ENTRYPOINT apachectl-D FOREGROUND
+#USE ENTRYPOINT INSTEAD OF CMD
+ENV name Devops intellipaat
+
+
+> docker build . -t new-docker-file
+> docker usermod -aG docker $USER #AUTO LOGIN 
+>> so new image is created after build
+> docker run -it -p 84:80 -d new-docker-files
+###localhost:84
+================================================================
+

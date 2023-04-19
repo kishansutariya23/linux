@@ -1,0 +1,599 @@
+ctrl+l ==> for clear the screen
+ctrl+c ==> to kill the process @ if you are in shell/conda mode :)` 
+ctrl+N ==> NEW window 
+note:- (1) DONT RUN IMAGE instead of that run CONTAINER # save space and all the file you generate/work will be in same container
+       (2) IMAGE AND CONTAINER both has different ID'S
+
+
+
+
+docker # to check wether it is installed in system or not
+docker version ==> to see the version
+docker run hello-world   # no need to install it will automaticall install it but we have to run one more time
+docker run hello-world
+
+docker pull busybox   # it is basic/classic @small linux/unix #we can use basic command
+docker run busybox  --> it will not do anything
+docker run busybox ls --> it will act as linux command for listing all files 
+
+============================SECTION-2=======================================
+@@@docker lifecycle
+> docker ps --> to see processing image @ current running
+> docker ps --all  --> to see all runned images with command and port and status(exites=>not ended @see pic of lifecycle) if meta-volume is stored 
+   @ as i have removed all volume(splunk,jenkins) and started freshly it will show only helloworld and busybox.
+check docker lifecycle from official website or note from course.
+  
+taken pic of docker lifecycle
+
+
+
+
+@@@start and delete containers
+## take ID from ps --all
+> docker start ID
+> docker start -a ID  # it will run the previous/last command which was executed associated with ID
+# as every time we run new command it will occupy some space to overcome this we use above method @run with ID :) 
+> docker system prune  ---> this will delete all container @ all commands which we have typed and runned all will be lost forever
+# if you want to run those command again then you have to pull it from hub and run again.
+
+
+
+
+
+@@@mongodb :) -it---> this will allow us to get into the container if permission is there
+docker ps --all  --> it should be empty
+docker run mongo  --> pull and run in single go.
+# as it is closed container we cant able to interact with mongo so ctrl+c 
+> docker ps --all   --> copy the mongo ID
+> docker start ID
+> docker ps --all --> you will see the status as running
+> docker exec -it ID bash # so by doing this you will be drilling a small hole and getting inside the mongo bash shell as you have requested 
+# that you want to run the mongo with bash.
+###@@ root@ID:/#    # hurry you successfully entered into mongo container.
+    # so now you can run linux command as i guess this mongo is sitting on LINUX.
+    >> mongo   # to run the mongo in the container.
+    >> show dbs # to show all databases
+    *** ctrl+d  --> to get outof mongo shell
+    ctrl+d --> again to exit from mongo container #@@ now you are in git bash(in docker world)
+> docker ps # you will see 1 container is still running
+> docker stop ID  # it will stop the processer and make to change the status to exited..
+> docker ps # no container will be running
+> docker ps --all # to check the status of container.
+> docker kill ID @bad choice  # if your container@docker is misbehaving then you can use this
+
+
+
+
+
+@@@ exec  ==> user(gitbash/terminal)  interact(<-o/p-----i/p->) docker[mongo[]]
+# check the official website to know about this
+-i(i/p & o/p) & -t(tty=> represent in nice way)
+https://docs.docker.com/engine/reference/commandline/exec/
+
+Name, shorthand	Default	Description
+--detach , -d		Detached mode: run command in the background
+--detach-keys		Override the key sequence for detaching a container
+--env , -e	     	Set environment variables
+--env-file	    	Read in a file of environment variables
+--interactive , -i		Keep STDIN open even if not attached
+--privileged		Give extended privileges to the command
+--tty , -t		    Allocate a pseudo-TTY
+--user , -u		    Username or UID (format: <name|uid>[:<group|gid>])
+--workdir , -w		Working directory inside the container
+
+
+
+
+
+@@@multiple ways to get inside container
+
+> docker ps --all  # cpy the ID of mongo 
+> docker exec -it ID bash
+## if container is not running the start the container with start
+> docker exec -it mongo bash  # error
+> docker stop ID
+> docker ps # check @ 0
+> docker run -it mongo bash # run and lly get inside the container
+#### above is bad way as we are overridding the default command with bash in above example
+#### and moreever we are following 3 steps to run above @ stop ps then run with -it
+> docker exec -it ID bash  # formal way and good practice
+
+NOTE:-- all container are different as you can see diff ID for same container_name(mongo)
+to verify just go inside one MONGO_container@ID=123 CREATE basic file
+        then go into another MONGO_container@ID=234 CREATE another file 
+you will find that other file is not present inside this container
+
+
+==========================CUSTOM DOCKER IMAGES===========================================================
+@@@ANALOGY FOR CUSTOM DOCKER IMAGES
+--> how to install postman
+     install OS  ---> any linux 
+     install a browser
+     google postman   --> get link 
+     start installation
+     figure oyt dependencies
+     install those dependencies
+     restart postman installation
+     plce a shortcut icon
+     finish
+### this is the proceess in same way we write it in dockefile all this to buid image
+
+
+
+@@@OUR FIRST BASE IMAGE AND CUSTOM IMAGE
+in gitbash  go to your fav/project directory
+> mkdir mymongo-image
+> cd mymongo-image
+> code .  # open vscode for this directory
+###how to generate image?
+    create Dockerfile(write some piece of code/instruction)--->dockerclient(docker server and commands)---->
+    then we get custome image
+>> "Dockerfile" is created in this directory
+       >> inside dockefile
+       # this is commit and all are case sensitive
+
+       #step 1:- get base image @OS
+       FROM alpine    #alpine is small docker/linux based OS
+
+       # step 2 :- install software
+       RUN apk add binutils    #simmilar to postman #software
+
+       # step 2.5 configure that software
+
+       # step 3:- set default commands
+        # CMD ["executable"]
+        # CMD ["npn" "install"]
+        # CMD ["python3" "install"]
+#interminal/gitbash
+> ls  --> Dockerfile
+> docker build .  # . indicates current directory
+
+
+
+@@@BEHIND THE SCENE FOR CUSTOM IMAGE
+after building some code / ID is generated and our Dockerfile will be run and we get image
+## think that there is a base container and empty container
+## so what ever you write in Dockerfile will be executed 
+## so first it will install os in base container
+## then install the software in temp container
+## add the os to temp container
+## replace the base container images(OS) with temp container images(os,software)
+## so now your temp will have nothing but it has it in form of cache
+## if one more time we run the file then BC(os, software) and TC(software1)
+## BC()-->TC(OS, software,software1)
+## move TC(_,_,_)--> bc()
+finally TC will be empty and BC will have 3 images
+
+
+
+@@@CREATING A CUSTOM MONGODB IMAGE
+open Dockerfile and write below code
+    >> #step1
+        FROM alpine
+       #step2:installasoftware
+       # install alpine from below repositories
+        RUN echo'http://dl-cdn.alpinelinux.org/alpine/v3.6/main'>>/etc/apk/repositories
+        RUN echo'http://dl-cdn.alpinelinux.org/alpine/v3.6/community >>/etc/apk/repositories
+        RUN apk update
+        RUN apk add mongodb=3.4.4-r0   
+       # step 2.5 configure that software
+        VOLUME [ "/data/db" ]
+        WORKDIR /data
+        EXPOSE 27017 #port
+       # step 3
+        CMD ["mongod"]
+> ls
+> docker buid .
+# cpy the image ID after successfully completion
+> docker run ID
+ctrl+n
+> docker ps # check port
+## copy the container ID
+> docker exec -it ID bash # error as we have provided with default CMD
+> docker exec -it ID sh
+> mongo  # as we have give /data as dir so we will land there only and do mongo work
+
+
+
+
+@@@CONCEPT OF CACHING IN DOCKER
+CACHE makes build faster as we already execute the Dockerfile once
+#BUT make sure if any new line is added in middle then from top to middle build will use cache then afterward new TC is created for every line of Dockerfile    
+add below line after mongo:version from Dockerfile
+> RUN apk add binutils
+## NOW BUILD AGAIN 
+
+add below line after port
+> RUN apk add isl
+## now build again
+
+# you will see that in 1 step @ binutils all the cache were used again for above but after binutils new TC is made
+## again after buid --> cache is used before isl line ,   from isl line in Dockerfile new TC is made 
+# DUE TO CACHE proceess will be fast as build knows that why to repate and waste memory and space usage.
+
+
+
+
+@@@PROVIDE A CUSTOM NAME FOR YOUR IMAGE
+## check doc. to see the name convention
+> docker run ID
+> docker build -t kishansutariya23/mymongo:latest .
+> docker run kishansutariya23/mymongo
+
+
+
+====================PROJECT AND DOCKER========================================
+@@@INTRODUCTION TO NODE PROJECT FOR DOCKER
+package.json(set of instruction)-----npm install---->node_modules(all will be installed in this modules)------declaration---->src[dir,file]
+
+> mkdir mynode
+> cd mynode
+> ls # nun
+> node -v
+> npm -v
+> npm init -y  #it will ask lots of question so for them i want answer as Yes
+## above is to create package.json file
+> code .
+## as there is nothing present in description of package.json in this small project we get warning NOT error
+##modify the json file
+"test":"----"-->"start":"node index.js"
+> npm install express
+## node_modules folder is created automaticall
+###CREATE index.js file
+  
+$$$$it is same as django # automatically folder is generated when we execute some CMD
+
+
+
+
+
+@@@INTRODUCTION TO NODE PROJECT FOR DOCKER 2
+### inside index.js write below code
+        const express=require("express");
+        const app=express();
+        app.get("/",(req,res)=>{
+            res.send("<h1>Visiting Root</h1>");
+        });
+               I
+        app.Listen(8000,()=>{
+             console.log("App is running at 8000");
+        });
+                   
+> npm start
+> locathost:8000
+
+
+
+
+@@@CONTAINERIZE A NODE APPLICATION
+create Dockerfile in the folder
+## node_modules file is not uploaded in any server so delete it and 
+## when ever you install such IMAGE make sure you install node_modules by (npm install)
+## now create image so based on your project select the best and optimized image for the project
+         Docker for node application
+            Bring base image
+            Createaworking dir
+            Bring all files
+            Run installer
+            Default command
+               Some tips
+
+$$Dockerfile
+        FROM node:alpine
+        WORKDIR/usr/nodeapp
+        COPY ./ ./
+        RUN npm install
+        CMD["npm","start"]
+
+
+> docker buid .
+> docker build -t kishansutariya23/nodeapp .
+> docker run kishansutariya23/nodeapp  # it will run but in container only
+# but we want to acces that container in local machine so we give myport_desired_port:container_port
+> docker run -p 8000:8000 kishansutariya23/nodeapp # locathost:8000 in browser runs well  
+## there will be some performance issues we will see in next video
+NOTE: MAKE SURE YOU HAVE NODE_MODULE IN YOUR SYSTEM(./) AS IN IMAGE WE HAVE DELETED IT(INDUSTRY STANDARD)
+
+
+
+
+
+@@@PERFORMANCE UPGRADE IN NODE PROJECT
+##               Some tips
+#dockefile
+        FROM node:alpine
+        WORKDIR/usr/nodeapp
+        COPY./package.json ./
+        RUN npm install
+        COPY ./ ./
+        CMD["npm","start"]
+
+
+##index.js
+        app.get("/", (req,res)=>{
+        res.json({
+            message:"Your are visiting root"
+  });
+});
+app.get("/login",(req,res)=>{
+    res.json({
+        message:"Your are visiting login router'
+});
+});
+
+app.get("/signup",(req,res)=>{
+    res.json({
+        message:"Your are visiting signup"
+});
+});
+                     
+app.listen(8000,()=>{
+  console.log("App is running at 8000");                      I
+
+
+> build again
+locathost:8000/login
+locathost:8000/signup
+
+
+===========================MULTI CONTAINER SETUP=========================================================================================
+
+@@@INTRODUCTION TO MULTI DOCKER CONTAINER
+USER------>[(APP)<-->(DB)]
+## we use docker COMPOSE for interact between container(app,db)
+##db can be build in yml also 
+
+
+@@@A MINI MONGO CONNECTOR PROJECT   (connect app with local mongo for testing)
+#this is NOT DOCKER CONCEPT READ LAST LINE 
+>>GITBASH/terminal
+> mkdir startapp
+> cd startapp
+> ls  #empty
+> npm init -y
+# as we have node.js already installed we can make a base_file(have all configuration) install automaticall when we write npm
+# it is similar to django already installed and we write startapp and create app with manage.py its simillar
+> ls ==> backage.json
+> npm install mongoose
+> code .
+>> edit package.json
+   scripts:{"start":"node index.js"},
+>> create index.js file
+        const mongoose=require("mongoose");
+        const DATABASE="";
+### 
+        mongoose
+             .connect(DATABASE)
+             .then(()=>{
+                   console.log("DB Connected!");
+                })
+             .catch(()=>{
+                       console.log("ERROR in DB Connnection!");
+                 });
+
+> npm start   ==> run in browser/terminal @error
+
+>> edit index.js file
+## if you have DB in some other location then give https link in "" below
+    >>    const DATABASE="mongodb:// localhost:27017/testup";
+ ## terminal successfully @ you need mongodb in localsystem not in docker
+ ## we made testing to confirm that our app is running successfully in local and next module we will make docker for this app.
+
+
+
+
+
+
+
+@@@PUT YOUR NODE CODE IN A CONTAINER   (APP)
+## now what we done in previous module will be stored in container
+## ignore :) the node_modules as we no need to delete it more again
+
+>> create .dockerignore file
+## write what you want to ignore
+   node_modules
+
+>> create Dockerfile
+        FROM node:alpine
+        WORKDIR /var/app
+        COPY ./package.json ./
+        RUN npm install
+        COPY . .
+        CMD["npm","start"]
+
+> docker buid -t nodes .
+> docker run nodes  # error in DB COnnection 
+## as we are half done(app container done) and remaining part(mongo container) is pending
+
+
+
+
+@@@INTRODUCTION TO DOCKER COMPOSE     (HELPER==yaml)
+## method which make multiple container running at same time
+docs.docker.com/compose    # check the doc.
+# order of container(services) matter as if you give node and how it will connect without db
+# so give db first then node
+or
+# write "depends" in node service saying it depends on other service(container)
+##indentation is madatory
+
+>>create a docker-compose.yml file 
+    version: "3"
+    services:
+        mymongo:
+            image:"mongo"
+
+        mynode:
+            build: .
+            port:
+                -"8000:8000"
+
+## as we have already node container so we used current directory
+
+
+
+
+@@CONNECT 2 COMPOSE IMAGES IN DOCKER   [(APP)<-->(DB)]
+# if yaml file is prent then only it will show o/p for below CMD
+> docker-compose ps
+## we want both container as build @run all so see below CMD
+> docker-compose up --build  # at last DB Connected fail 
+# as so we modify the yaml file
+    
+    >>    const DATABASE="mongodb://mymongo:27017/testup";
+    ##give your container name inplace of localhost
+
+> ctrl+c
+>> docker-compose up --build #successfully Connected
+
+
+
+
+
+@@@ACCESS THE COMPOSE CONTAINER APP WITH BROWSER   USER@INTERACTION WITH--->[()<--->()]
+> npm install express
+## same as last time
+>> edit index.js file
+  const express = require("express")
+  const app=express()
+   # below line at last in index file
+    
+    app.get("/",(req,res)==>{
+        res.json({
+            message:"yo are on root page"
+        });
+    });
+
+    app.listen(8000,()=>{
+        console.log("8000 is ready to serve,,,");
+    });
+> docker-compose up --build
+##localhost:8000/
+
+
+;)
+
+
+
+
+===================NGNIX-PRODUCTION GRADE DEPLOYMENT=====================================================================================
+@@@NGNIX A PRODUCTION GRADE DOCKER
+> mkdir webproj
+> cd webproj
+> code .
+## create 3 files
+    index.html
+    dashboard.css
+    bootstrap.min.css
+copy content to index.html -->view-source:https://getbootstrap.com/docs/4.3/examples/dashboard/
+copy content to dashboard.css-->getbootstrap.com/docs/4.3/examples/dashboard/dashboard.css
+copy content to bootstrap.min.css ---> getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css
+
+##index.html make modification al line no:24(make file name);
+                                          150 :- Dashboard > kishansutariya23
+
+> Dockerfile
+        FROM nginx
+        COPY . /usr/share/nginx/html
+> docker build -t myweb .
+> docker run -p 8080:80 myweb
+#localhost:8080
+
+##if any modification in html file it will not reflect in nginx-localhost:8080 for that we want more knowledge
+##next module
+
+
+
+
+@@@ATTACHING VOLUMES IN DOCKER
+## previous module knowledge require
+> pwd  #take path 
+#dont place . in below cmd instead use $(pwd)
+> docker run -p 8080:80 -v $(pwd):/usr/share/nginx/html myweb
+###now any changes made in index.html it will reflect realtime
+## now try to give instagram ID in place of dashboard
+
+
+
+
+@@@TYPES OF DOCKER FILES  @major files 
+    Dockerfile        ---> at final after done with our project we use it for wrapping
+    .dockerignore     ---> for ignoring files and fodler like in development env(we use password) but in production we dont want password so we keep our password as ignore
+    Docker-compose.yml --> it help us to minimize the CMD by @we place all code in this file as we dont want to repate the cmd again
+    Dockerfile.dev     --> it work in development env(testing also,...) and never tranform in production machine
+
+
+
+
+
+@@@DEV TEST AND PRODUCTION STAGES
+dev[mymachine]   test[SE, sweet]    production[nginx-server]
+  mymachine       other-machine
+
+@files gets transform from dev-->test-->production
+##all file of dev copied to test 
+##dockefile and all files are moving in production and build is created and all(clien.user) will access build not remaining files
+##dockefile.dev is not present in production
+#sometime only build is there in production
+
+
+@@@ UNDERSTANDING REACT PROJECT FOR DOCKER DEPLOYMENT
+#django-project :)`
+>> got to project directory
+> npx xreate-react-app myreact
+> cd myreact
+> code .
+> npm start  # localhost:3000
+>>just run the test then make build cmd is given in terminal
+
+@@@ DOCKER FOR DEVELOPMENT
+
+
+@@@ DOCKER FOR TESTING
+
+
+
+
+@@@ DOCKER FOR PRODUCTION
+
+
+
+=============================DOCKER AWS AND TRAVIS CI =================================
+@@@DOCKER CI AND AWS
+### app is already build in previous module @react app
+Build Your APP----> USE GIT---->USE CI----->AWS 
+
+@@@WHAT IS CI CD JENKINS VS TRAVIS CI
+jenkins           travis CI
+setup takes time      ===    almost instant setup
+free                 ===     free for open source
+server based          ===   cloud based
+learning takes time   === easy to learning
+fully custom    ====  just yaml
+more in big project   === more in open-source
+
+
+@@@MOVING TO AWS ELASTIC BEANSTALK
+
+
+@@@MOVING PROJECT TO GITHUB REPO 
+
+
+@@@READING TRAVIS CI DOCUMENTATION
+
+.
+.
+.
+.
+.
+NOTE:- COME BACK IN FUTURE IF YOU STRUCK AS MY INTENSION OF THIS PROJECT TO MAKE DOCKER FILES AND MAKE IT AVAILABLE FOR UPLOAD OR SHARE.
+NOT TO HOST IN SOME AWS OR.....
+## IF YOU WANT TO HOST COME HERE AND SEE THE VIDEOS
+
+
+
+
+
+
+
+httpD==>deamon
